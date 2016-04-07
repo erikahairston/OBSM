@@ -1,0 +1,113 @@
+More Technical Explanation- Design Tour of OBSM: Our (Current) Black Student Movement 
+
+Discusses, technically, 
+- how you implemented your project 
+- why you made the design decisions you did.
+
+Your design document should be at least several paragraphs in length. 
+Whereas your documentation is meant to be a user’s manual, consider your design 
+document your opportunity to give the staff a technical tour of your project underneath its hood.
+
+
+Backend/ Databases/ Tables:
+    I heavily used phpMyAdmin to store and retreive almost all of the content for OBSM.
+    -'Schools' & 'Users':
+        The first table I created was "users", that would give each user a row including their unique id, first and
+        last name, school, hash password, grade, and email. Similar to CS50 finance, I decided to make the email the 
+        unique key (like the username for pset7). However, I needed a way to ensure that the emails used to register 
+        were actually of students. Therefore, I found a json file of every univeristy's domain name and converted it into
+        a csv file. With that, I learned how to upload the csv file into phpMyAdmin, in order to have another table, "schools",
+        where I could cross-check the domain names with the emails users signed up with. I chose this route, beacuse adding
+        a .edu is not safe enough, but I also didn't want to spam people's emails. Also, this way ensures that everytype of school
+        email is included and I won't wrongly assume that the domain name is just the school name (i.e. Georgia Tech emails end
+        in @gatech, not @georgiatech). This way also provided me with a list of every single university that I easily query for
+        future use.
+        
+        Once I had the users and schools tables setup, I realized that I could verfiy the school the user typed in upon registration
+        with the database, so that when I want to pull things based off of users' schools, they are uniform. After setting up the 
+        backend for login and register, I used the CS50 Finance Pset7 as a template to begin my website.
+        
+    -'Uploads':
+        Because my website is based almost entirely on user content, I needed to then setup the database and tables for what the
+        uploads would looklike in order to setup features where I would be pulling from that table. Therefore, I created a table
+        called 'uploads' where I could upload files directly into phpMyAdmin from my computer. However, I realized that this wasn't
+        the most size and time efficient method. However, although I have the "unused" uploads table in phpMyAdmin, in the future, with more time, I'd like
+        continue working on adding local files to my website and into the database; but for now, I abandoned this to work on other
+        features. (Hence, my note at the top of "Contribtue.php") In the contribtue file, I was able to successfully find local files and
+        send them to the database; however, I stopped when I had trouble downloading them back down. That is when I realizd that using
+        files already online and their URLS would be much easier.
+        
+    -'Upload'
+        The Upload table is my officil table for when users' add posts to the website. I knew that I wanted to have features where I could
+        pull information by school, by name, by category, and potentially by year; therefore I was meticulous about the columns for this table.
+        The two keys I made unique to each other were the timestamp and the user_id (person who posted) because it'd be impossible for one person
+        to post more than 1 thing at the same exact time. Therefore, if I wanted to pull posts individually I could do so by those two. 
+    
+ 
+Posts & Contribute:      
+    OBSM is meant to be a space for students' voices to be heard. Therefore, I knew I needed a way to orgranize and categorize what
+    was posted well so I could filter easily. I realized that with everything happening on campuses, students want to see what's happening
+    now, nearby, and similarly. I also thought about how people would interact with the site and what sorts of things would be
+    posted. I then came across the jquery timeline library ("http://www.jqueryrain.com/?8JZJrFMi"). I realized that I easily
+    could organize posts by time like in a timeline and categorize the type of post it is (fun thing for healing, annoucement like,
+    a book or class suggestion). Organizign this way also leaves room for me to add new categories of posting without disrupting 
+    the current content.
+
+    Given the 4 different ways to post, that made it easy to create 4 different forms that could be submitted into my 'upload'
+    table (i.e. "addbook, addclass, addevent, addsoul" .php). Each php file checks the data from its corresponding html form via $_POST
+    to make sure the required fields that I'd need to eventually pull for specific features were filled out, then inserts into 
+    the database. When inserting the posts' data from each form, I was able to link each post to the user table by querying the
+    $_SESSION["id"]. Once I figured out the backend logistics of how to store and retrieve each post, I was ready to figure out
+    how to display them.
+    
+Personalized Pages & Resuing "souls_view.php":
+    Once you enter and log into the site, you are greeted with a welcome with your name. After coding that, I realized that 
+    I could pass in the array of the current users' information and have the school, which would allow me to query for all
+    posts from their school. Therefore, the "index.php" file queries for the user info and renders the  "home.php" file which will
+    display the filtered timeline. However, I realized that I had already coded the dynamic timeline in a different view file
+    ("souls_view.php"), and it didn't make sense to rewrite it just so that when I rendered the view page it wouldn't print the header twice.
+    
+    Therefore, I created the fxn renderhome(); that would do the same thing as render(), accept leave out the header, so that 
+    on my home screen, underneath the header, I could still render the same timeline template.
+    
+Coding the Timeline View for the first time "soul.php" & "souls_view.php":
+    If you click on the "Gives Me Life" tab from the Nav Bar, you will see a variety of posts all from the "Feed Our Souls" category. 
+    These posts come from every student from any school registered that has posted something in this category (aka queries
+    from upload all posts with category "feedsoul").
+    
+    -Using the jquery timeline library ("http://www.jqueryrain.com/?8JZJrFMi")
+    When I first found this timeline I was super excited because it was exactly what I was looking for. However, when I looked
+    at the source code, I realized that each "event/post" was hard-coded with html. I had to come up with a system of reusing
+    the tags in their code, but re-writing all of the html content (i.e. event title, img="src", date, etc) with php variables
+    so that I could pull them dynamically from the database.
+    
+        -"soul.php" queries for the content that will be placed into the timeline (select * from upload where X), because
+        this spits back a table of filterd uploads, I could use "souls_view.php" to go thru each upload and create a 
+        "timeline.row" (a new post/event). I could also check which category and what content to display based on my query
+        into upload.
+        
+    -I then realized that most of my pages required that php timeline skelton but just with different filtered queries going
+    into it, therefore, I reuse the "souls_view.php" for all timelines (i.e. mymoves by passing in just my session_id, all_schools
+    by having the user query for one school, and the user's school as I talk about above.) 
+
+Displaying the Posts/Timelines
+    -because I wanted them to post most recent first, in "souls_view.php" I reverse the table order.
+    
+    CSS: Because the Timeline library I found has such an extensive CSS stylesheet, I copied most of it over and just
+    renamed most of my styling that I already had that overlapped.
+    
+    Javascript: I was able to copy and paste directly the js from the given library into my js file.
+    
+
+
+FILES TO IGNORE: "imgupload.php" this file corresponds with the 'uploads' table that I don't acutally use yet because I decided
+it was easier to just use media urls and worry about local content in the future. 
+
+Sources:
+
+Gathered all of the schools from this github:
+-https://github.com/Hipo/university-domains-list/blob/master/world_universities_and_domains.json
+Timeline Feature idea:
+-http://www.jqueryrain.com/?8JZJrFMi
+-w3schools
+

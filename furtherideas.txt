@@ -1,0 +1,77 @@
+TODO: Give Yourself Life (Black Beauty)/The Feels For you 
+
+(upload, check box "Fill your Soul")
+- Stand By Me Music video: https://www.youtube.com/watch?v=xYXwYR8iZ_E
+- We Shall overcome by Shades: https://www.youtube.com/watch?v=4FLaTIoO-cU
+- Joel's Feel Good Playlist zip file: https://yale.app.box.com/s/f17b1xrdtikgr78ugub4rhqyqbxb8hqe
+- DownMag SoundCloud: https://soundcloud.com/downmag-music
+-Me through media (actors and actresses we love??? shows, girlfriends, proud family, one-on-one etc.)
+-Black funny memes or gifs
+-best black twitter hashtags
+
+TODO: Black Media (Our Voices)
+-DownMagazine: http://downatyale.com/
+-thedemands.org
+-amherstuprising.com
+-@ivygirlmagic
+
+
+
+Next-up: -add a share button (Facebook or Twitter), 
+
+FEATURE:
+-weighted content (like a wordle)...-
+-incentives to unlock somethign based off of interaction
+
+-Subscribe to a project (your home page populates) 
+-Follow a school 
+-How to see what others have done
+-ways to collaborate
+
+TODO: compiled reading list 
+-Yale Library: recommend a book form http://web.library.yale.edu/form/recommend-book
+
+
+TODO: My Contributions to the Movement (upload your content) 
+(Filter, my region's content, my school's content)
+
+TODO: My School Section
+
+TODO: Timeline
+-upcoming events??
+
+
+TODO: Add Content 
+
+TODO: Gallery
+-Phillip Ardnt
+
+TODO: This is what solidarity looks like. 
+-SUGGESTED READING LIST(take from DEan Cooley letter from Yale grad. students)
+- Teachers at Brandeis University.
+
+
+TODO: Give photo credits to Lining Wang for design of the fist
+TODO: WE OUT HERE, WE"VE BEEN HERE, WE AIN"T LEAVING WE ARE LOVED.
+
+
+
+This documentation is to be a user’s manual for your project. 
+
+-Though the structure of your documentation is entirely up to you, it should be 
+incredibly clear to the staff how and where, if applicable, to compile, 
+configure, and use your project. 
+
+-Your documentation should be at least several paragraphs in length.
+It should not be necessary for us to contact you with 
+questions regarding your project after its submission. 
+
+- Hold our hand with this documentation; be sure to answer in your documentation 
+any questions that you think we might have while testing your work.
+
+
+
+Sources:
+
+Gathered all of the schools from this github
+-https://github.com/Hipo/university-domains-list/blob/master/world_universities_and_domains.json
